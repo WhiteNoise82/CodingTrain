@@ -31,8 +31,8 @@
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.MenuBox = new System.Windows.Forms.ToolStripMenuItem();
             this.MenuStart = new System.Windows.Forms.ToolStripMenuItem();
-            this.stopToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.MenuStop = new System.Windows.Forms.ToolStripMenuItem();
+            this.ManuExit = new System.Windows.Forms.ToolStripMenuItem();
             this.picBox = new System.Windows.Forms.PictureBox();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picBox)).BeginInit();
@@ -52,8 +52,8 @@
             // 
             this.MenuBox.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.MenuStart,
-            this.stopToolStripMenuItem,
-            this.exitToolStripMenuItem});
+            this.MenuStop,
+            this.ManuExit});
             this.MenuBox.Name = "MenuBox";
             this.MenuBox.Size = new System.Drawing.Size(50, 20);
             this.MenuBox.Text = "Menu";
@@ -65,17 +65,18 @@
             this.MenuStart.Text = "Start";
             this.MenuStart.Click += new System.EventHandler(this.MenuStart_Click);
             // 
-            // stopToolStripMenuItem
+            // MenuStop
             // 
-            this.stopToolStripMenuItem.Name = "stopToolStripMenuItem";
-            this.stopToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.stopToolStripMenuItem.Text = "Stop";
+            this.MenuStop.Name = "MenuStop";
+            this.MenuStop.Size = new System.Drawing.Size(180, 22);
+            this.MenuStop.Text = "Stop";
+            this.MenuStop.Click += new System.EventHandler(this.MenuStop_Click);
             // 
-            // exitToolStripMenuItem
+            // ManuExit
             // 
-            this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.exitToolStripMenuItem.Text = "Exit";
+            this.ManuExit.Name = "ManuExit";
+            this.ManuExit.Size = new System.Drawing.Size(180, 22);
+            this.ManuExit.Text = "Exit";
             // 
             // picBox
             // 
@@ -112,8 +113,8 @@
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem MenuBox;
         private System.Windows.Forms.ToolStripMenuItem MenuStart;
-        private System.Windows.Forms.ToolStripMenuItem stopToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem MenuStop;
+        private System.Windows.Forms.ToolStripMenuItem ManuExit;
         private System.Windows.Forms.PictureBox picBox;
     }
 }

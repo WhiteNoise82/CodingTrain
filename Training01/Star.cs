@@ -10,49 +10,62 @@ namespace Training01
 {
     public class Star
     {
-        private int StarWidth;
-        private int StarHeight;
-        private int StarX;
-        private int StarY;
-        private Rectangle StarRect;
+        private int _NumberOfStars;
+        private int[] _StarWidth;
+        private int[] _StarHeight;
+        private int[] _StarX;
+        private int[] _StarY;
+        private Rectangle[] _StarRect;
         static Random rand = new Random();
 
-        public Star(int formWidth, int formHeight, int seed)
-        {            
-            this.StarHeight = rand.Next(5,8);
-            this.StarWidth = rand.Next(5, 8);
-            //this.StarX = (int)(rand.NextDouble() * formWidth);
-            //this.StarY = (int)(rand.NextDouble() * formHeight);            
-            this.StarX = rand.Next(0, formWidth);
-            this.StarY = rand.Next(0, formHeight);
+        public Star(int formWidth, int formHeight, int numberOfStars)
+        {
+            this._NumberOfStars = numberOfStars;
 
-            this.StarRect = new Rectangle(StarX, StarY, StarHeight, StarWidth);
+            this._StarWidth = new int[numberOfStars];
+            this._StarHeight = new int[numberOfStars];
+            this._StarX = new int[numberOfStars];
+            this._StarY = new int[numberOfStars];
+            this._StarRect = new Rectangle[numberOfStars];
+
+            for (int i = 0; i < _NumberOfStars; i++)
+            {
+                this._StarWidth[i] = rand.Next(5, 8);
+                this._StarHeight[i] = rand.Next(5,8);
+                //this.StarX = (int)(rand.NextDouble() * formWidth);
+                //this.StarY = (int)(rand.NextDouble() * formHeight);            
+                this._StarX[i] = rand.Next(0, formWidth);
+                this._StarY[i] = rand.Next(0, formHeight);
+
+                this._StarRect[i] = new Rectangle(_StarX[i], _StarY[i], _StarHeight[i], _StarWidth[i]);
+
+            }
             
         }
 
-        public int starWidth
+        public int[] starWidth
         {
-            get { return StarWidth; }
+            get { return _StarWidth; }
         }
 
-        public int starHeight
+        public int[] starHeight
         {
-            get { return StarHeight; }
+            get { return _StarHeight; }
         }
         
-        public int starX
+        public int[] starX
         {
-            get { return StarX; }
+            get { return _StarX; }
         }
 
-        public int starY
+        public int[] starY
         {
-            get { return StarY; }
+            get { return _StarY; }
         }
 
-        public Rectangle starRect
+        public Rectangle[] starRect
         {
-            get { return StarRect; }
+            get { return _StarRect; }
         }
     }
 }
