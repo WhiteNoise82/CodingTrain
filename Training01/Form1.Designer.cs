@@ -28,7 +28,64 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.MenuBox = new System.Windows.Forms.ToolStripMenuItem();
+            this.MenuStart = new System.Windows.Forms.ToolStripMenuItem();
+            this.stopToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.picBox = new System.Windows.Forms.PictureBox();
+            this.menuStrip1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picBox)).BeginInit();
             this.SuspendLayout();
+            // 
+            // menuStrip1
+            // 
+            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.MenuBox});
+            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip1.Name = "menuStrip1";
+            this.menuStrip1.Size = new System.Drawing.Size(384, 24);
+            this.menuStrip1.TabIndex = 0;
+            this.menuStrip1.Text = "menuStrip1";
+            // 
+            // MenuBox
+            // 
+            this.MenuBox.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.MenuStart,
+            this.stopToolStripMenuItem,
+            this.exitToolStripMenuItem});
+            this.MenuBox.Name = "MenuBox";
+            this.MenuBox.Size = new System.Drawing.Size(50, 20);
+            this.MenuBox.Text = "Menu";
+            // 
+            // MenuStart
+            // 
+            this.MenuStart.Name = "MenuStart";
+            this.MenuStart.Size = new System.Drawing.Size(180, 22);
+            this.MenuStart.Text = "Start";
+            this.MenuStart.Click += new System.EventHandler(this.MenuStart_Click);
+            // 
+            // stopToolStripMenuItem
+            // 
+            this.stopToolStripMenuItem.Name = "stopToolStripMenuItem";
+            this.stopToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.stopToolStripMenuItem.Text = "Stop";
+            // 
+            // exitToolStripMenuItem
+            // 
+            this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.exitToolStripMenuItem.Text = "Exit";
+            // 
+            // picBox
+            // 
+            this.picBox.BackColor = System.Drawing.Color.Black;
+            this.picBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.picBox.Location = new System.Drawing.Point(0, 24);
+            this.picBox.Name = "picBox";
+            this.picBox.Size = new System.Drawing.Size(384, 337);
+            this.picBox.TabIndex = 1;
+            this.picBox.TabStop = false;
             // 
             // Form1
             // 
@@ -36,14 +93,28 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
             this.ClientSize = new System.Drawing.Size(384, 361);
+            this.Controls.Add(this.picBox);
+            this.Controls.Add(this.menuStrip1);
+            this.MainMenuStrip = this.menuStrip1;
             this.Name = "Form1";
             this.Text = "Train #01";
-            this.Click += new System.EventHandler(this.Form1_Click);
+            this.Shown += new System.EventHandler(this.Form1_Shown);
+            this.menuStrip1.ResumeLayout(false);
+            this.menuStrip1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picBox)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
         #endregion
+
+        private System.Windows.Forms.MenuStrip menuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem MenuBox;
+        private System.Windows.Forms.ToolStripMenuItem MenuStart;
+        private System.Windows.Forms.ToolStripMenuItem stopToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
+        private System.Windows.Forms.PictureBox picBox;
     }
 }
 

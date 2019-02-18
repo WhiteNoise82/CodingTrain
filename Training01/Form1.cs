@@ -9,40 +9,45 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Collections;
 
+using System.Threading;
+
 namespace Training01
 {
     public partial class Form1 : Form
     {
+        Bitmap DrawArea;
+        List<Rectangle> stars = new List<Rectangle>();
+
         public Form1()
         {
             InitializeComponent();
-            this.Size = new Size(415, 440);
-            this.BackColor = Color.Black;
+            DrawArea = new Bitmap(picBox.Size.Width, picBox.Size.Height);
+            picBox.Image = DrawArea;
         }
+        //화면의 중심을 기준으로 방사형으로 움직임
 
-        private void Form1_Click(object sender, EventArgs e)
+        private void Form1_Shown(object sender, EventArgs e)
         {
-            ArrayList stars = new ArrayList();
-            Graphics graphics = CreateGraphics();
+            Graphics graphics = Graphics.FromImage(DrawArea);
 
-            for(int i = 0; i < 10; i++)
+            for (int i = 0; i < 100; i++)
             {
-                Star star = new Star(400, 400);
-                SolidBrush brush = new SolidBrush(Color.White);
-                graphics.FillEllipse(brush, star.starX, star.starY, star.starWidth, star.starHeight);
+                Star star = new Star(picBox.Width, picBox.Height, i);
 
-                //stars.Add(star);
+                stars.Add(star.starRect);
+                SolidBrush brush = new SolidBrush(Color.White);
+                graphics.FillEllipse(brush, star.starRect);
+                picBox.Image = DrawArea;
             }
             graphics.Dispose();
-
-            
-
-
         }
 
-        public void MakeStars()
+        private void MenuStart_Click(object sender, EventArgs e)
         {
-        }
+            foreach (Rectangle i in stars)
+            {
 
+            }
+        }
     }
 }

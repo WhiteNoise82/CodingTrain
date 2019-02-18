@@ -14,16 +14,20 @@ namespace Training01
         private int StarHeight;
         private int StarX;
         private int StarY;
+        private Rectangle StarRect;
+        static Random rand = new Random();
 
-        public Star(int formWidth, int formHeight)
-        {
-            Random rand = new Random();
-            this.StarHeight = rand.Next(2, 8);
-            this.StarWidth = rand.Next(2, 8);
+        public Star(int formWidth, int formHeight, int seed)
+        {            
+            this.StarHeight = rand.Next(5,8);
+            this.StarWidth = rand.Next(5, 8);
             //this.StarX = (int)(rand.NextDouble() * formWidth);
             //this.StarY = (int)(rand.NextDouble() * formHeight);            
-            this.StarX = rand.Next(0, 400);
-            this.StarY = rand.Next(0, 400);
+            this.StarX = rand.Next(0, formWidth);
+            this.StarY = rand.Next(0, formHeight);
+
+            this.StarRect = new Rectangle(StarX, StarY, StarHeight, StarWidth);
+            
         }
 
         public int starWidth
@@ -44,6 +48,11 @@ namespace Training01
         public int starY
         {
             get { return StarY; }
+        }
+
+        public Rectangle starRect
+        {
+            get { return StarRect; }
         }
     }
 }
