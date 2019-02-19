@@ -13,7 +13,9 @@ namespace Training01
         private int _NumberOfStars;
         private int[] _StarWidth;
         private int[] _StarHeight;
-        private int[,] _StarPos;
+        private double[] _StarX;
+        private double[] _StarY;
+
         private Rectangle[] _StarRect;
         static Random rand = new Random();
 
@@ -23,8 +25,8 @@ namespace Training01
 
             this._StarWidth = new int[numberOfStars];
             this._StarHeight = new int[numberOfStars];
-            this._StarX = new int[numberOfStars];
-            this._StarY = new int[numberOfStars];
+            this._StarX = new double[numberOfStars];
+            this._StarY = new double[numberOfStars];
             this._StarRect = new Rectangle[numberOfStars];
 
             int width = formWidth / 2;
@@ -39,7 +41,7 @@ namespace Training01
                 this._StarX[i] = rand.Next(-width, width);
                 this._StarY[i] = rand.Next(-height, height);
 
-                this._StarRect[i] = new Rectangle(_StarX[i], _StarY[i], _StarHeight[i], _StarWidth[i]);
+                this._StarRect[i] = new Rectangle((int)_StarX[i], (int)_StarY[i], _StarHeight[i], _StarWidth[i]);
 
             }
             
@@ -55,12 +57,12 @@ namespace Training01
             get { return _StarHeight; }
         }
         
-        public int[] starX
+        public double[] starX
         {
             get { return _StarX; }
         }
 
-        public int[] starY
+        public double[] starY
         {
             get { return _StarY; }
         }

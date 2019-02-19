@@ -8,7 +8,6 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Collections;
-
 using System.Threading;
 
 namespace Training01
@@ -17,7 +16,8 @@ namespace Training01
     {
         bool Start = false;
         bool Stop = true;
-        int NumberOfStars = 10;
+        int NumberOfStars = 100;
+        int Speed = 0;
         Bitmap DrawArea;
         Star star;
         //List<Rectangle> stars = new List<Rectangle>();
@@ -60,43 +60,56 @@ namespace Training01
         {
             Start = true;
             Stop = false;
-            StarsMove(Stop);
+            timer1.Enabled = true;
+                
         }
 
         private void MenuStop_Click(object sender, EventArgs e)
         {
             Start = false;
             Stop = true;
+            timer1.Enabled = false;
         }
 
-        private void StarsMove(bool stop)
-        {            
-            for (int i = 0; i < NumberOfStars; i++)
-            {
-                star.starX[i] = star.starX[i] + 1;
-                star.starY[i] += star.starY[i] + 1;
-            }
-
+        private void StarsMove()
+        {
             Graphics graphics = Graphics.FromImage(DrawArea);
             graphics.Clear(Color.Black);
             SolidBrush brush = new SolidBrush(Color.White);
-
+            
             for (int i = 0; i < NumberOfStars; i++)
             {
-                star.starRect[i].X = star.starX[i] + (picWidth / 2);
-                star.starRect[i].Y = star.starY[i] + (picHeight / 2);
+                if (star.starX[i] >= 0) { star.starX[i] = (star.starX[i]/ 200 + 1 + Speed)*200; }
+                else { star.starX[i] = (star.starX[i] / 200 - 1 - Speed)*200; }
+
+                if (star.starY[i] >= 0) { star.starY[i] = (star.starX[i] / 200 + 1 + Speed)*200; }
+                else { star.starY[i] = (star.starX[i] / 200 - 1 - Speed)*200; }
+            //}
+
+
+            //for (int i = 0; i < NumberOfStars; i++)
+            //{
+                star.starRect[i].X = (int)star.starX[i]+ (picWidth / 2);
+                star.starRect[i].Y = (int)star.starY[i] + (picHeight / 2);
                 star.starRect[i].Width = star.starWidth[i];
                 star.starRect[i].Height = star.starHeight[i];
                 
                 //stars.Add(star.starRect);
                 graphics.FillEllipse(brush, star.starRect[i]);
-                picBox.Image = DrawArea;
             }
+                picBox.Image = DrawArea;
             graphics.Dispose();
 
             Thread.Sleep(10);
 
-            
+                
+
+
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            StarsMove();
         }
     }
 }
