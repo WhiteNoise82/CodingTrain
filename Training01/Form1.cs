@@ -17,10 +17,13 @@ namespace Training01
     {
         bool Start = false;
         bool Stop = true;
-        int NumberOfStars = 5;
+        int NumberOfStars = 10;
         Bitmap DrawArea;
         Star star;
         //List<Rectangle> stars = new List<Rectangle>();
+        int picWidth;
+        int picHeight;
+
 
         public Form1()
         {
@@ -29,11 +32,17 @@ namespace Training01
             picBox.Image = DrawArea;
             
         }
+
+        
+
         //화면의 중심을 기준으로 방사형으로 움직임
 
         private void Form1_Shown(object sender, EventArgs e)
         {
-            star = new Star(picBox.Width, picBox.Height, NumberOfStars);
+            star = new Star(5, 5, picBox.Width, picBox.Height, NumberOfStars);
+            picWidth = picBox.Width;
+            picHeight = picBox.Height;
+
             //Graphics graphics = Graphics.FromImage(DrawArea);
             //SolidBrush brush = new SolidBrush(Color.White);
 
@@ -61,23 +70,26 @@ namespace Training01
         }
 
         private void StarsMove(bool stop)
-        {
-            picBox.Image = null;
-            
+        {            
             for (int i = 0; i < NumberOfStars; i++)
             {
-                star.starX[i] = star.starX[i] / 2 + 1;
-                star.starY[i] += star.starY[i] / 2 + 1;
+                star.starX[i] = star.starX[i] + 1;
+                star.starY[i] += star.starY[i] + 1;
             }
 
             Graphics graphics = Graphics.FromImage(DrawArea);
+            graphics.Clear(Color.Black);
             SolidBrush brush = new SolidBrush(Color.White);
 
             for (int i = 0; i < NumberOfStars; i++)
             {
-
+                star.starRect[i].X = star.starX[i] + (picWidth / 2);
+                star.starRect[i].Y = star.starY[i] + (picHeight / 2);
+                star.starRect[i].Width = star.starWidth[i];
+                star.starRect[i].Height = star.starHeight[i];
+                
                 //stars.Add(star.starRect);
-                graphics.FillEllipse(brush, star.starX[i], star.starY[i], star.starWidth[i], star.starHeight[i]);
+                graphics.FillEllipse(brush, star.starRect[i]);
                 picBox.Image = DrawArea;
             }
             graphics.Dispose();

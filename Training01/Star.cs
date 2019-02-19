@@ -13,12 +13,11 @@ namespace Training01
         private int _NumberOfStars;
         private int[] _StarWidth;
         private int[] _StarHeight;
-        private int[] _StarX;
-        private int[] _StarY;
+        private int[,] _StarPos;
         private Rectangle[] _StarRect;
         static Random rand = new Random();
 
-        public Star(int formWidth, int formHeight, int numberOfStars)
+        public Star(int starMaXSize, int starMinSize, int formWidth, int formHeight, int numberOfStars)
         {
             this._NumberOfStars = numberOfStars;
 
@@ -28,14 +27,17 @@ namespace Training01
             this._StarY = new int[numberOfStars];
             this._StarRect = new Rectangle[numberOfStars];
 
+            int width = formWidth / 2;
+            int height = formHeight / 2;
+
             for (int i = 0; i < _NumberOfStars; i++)
             {
-                this._StarWidth[i] = rand.Next(5, 8);
-                this._StarHeight[i] = rand.Next(5,8);
+                this._StarWidth[i] = rand.Next(starMinSize, starMaXSize);
+                this._StarHeight[i] = rand.Next(starMinSize, starMaXSize);
                 //this.StarX = (int)(rand.NextDouble() * formWidth);
                 //this.StarY = (int)(rand.NextDouble() * formHeight);            
-                this._StarX[i] = rand.Next(0, formWidth);
-                this._StarY[i] = rand.Next(0, formHeight);
+                this._StarX[i] = rand.Next(-width, width);
+                this._StarY[i] = rand.Next(-height, height);
 
                 this._StarRect[i] = new Rectangle(_StarX[i], _StarY[i], _StarHeight[i], _StarWidth[i]);
 
@@ -66,6 +68,7 @@ namespace Training01
         public Rectangle[] starRect
         {
             get { return _StarRect; }
+            set { _StarRect = value; }
         }
     }
 }
