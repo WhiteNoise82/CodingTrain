@@ -36,6 +36,9 @@
             this.ManuExit = new System.Windows.Forms.ToolStripMenuItem();
             this.picBox = new System.Windows.Forms.PictureBox();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.speedToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.SpeedUp = new System.Windows.Forms.ToolStripMenuItem();
+            this.SpeedDown = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picBox)).BeginInit();
             this.SuspendLayout();
@@ -44,11 +47,11 @@
             // 
             this.menuStrip1.ImageScalingSize = new System.Drawing.Size(32, 32);
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.MenuBox});
+            this.MenuBox,
+            this.speedToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Padding = new System.Windows.Forms.Padding(11, 4, 0, 4);
-            this.menuStrip1.Size = new System.Drawing.Size(713, 44);
+            this.menuStrip1.Size = new System.Drawing.Size(784, 24);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -59,54 +62,80 @@
             this.MenuStop,
             this.ManuExit});
             this.MenuBox.Name = "MenuBox";
-            this.MenuBox.Size = new System.Drawing.Size(90, 38);
+            this.MenuBox.Size = new System.Drawing.Size(50, 20);
             this.MenuBox.Text = "Menu";
             // 
             // MenuStart
             // 
             this.MenuStart.Name = "MenuStart";
-            this.MenuStart.Size = new System.Drawing.Size(324, 38);
+            this.MenuStart.ShortcutKeyDisplayString = "*";
+            this.MenuStart.Size = new System.Drawing.Size(180, 22);
             this.MenuStart.Text = "Start";
             this.MenuStart.Click += new System.EventHandler(this.MenuStart_Click);
             // 
             // MenuStop
             // 
             this.MenuStop.Name = "MenuStop";
-            this.MenuStop.Size = new System.Drawing.Size(324, 38);
+            this.MenuStop.ShortcutKeyDisplayString = "2";
+            this.MenuStop.Size = new System.Drawing.Size(180, 22);
             this.MenuStop.Text = "Stop";
             this.MenuStop.Click += new System.EventHandler(this.MenuStop_Click);
             // 
             // ManuExit
             // 
             this.ManuExit.Name = "ManuExit";
-            this.ManuExit.Size = new System.Drawing.Size(324, 38);
+            this.ManuExit.Size = new System.Drawing.Size(99, 22);
             this.ManuExit.Text = "Exit";
             // 
             // picBox
             // 
             this.picBox.BackColor = System.Drawing.Color.Black;
             this.picBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.picBox.Location = new System.Drawing.Point(0, 44);
-            this.picBox.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.picBox.Location = new System.Drawing.Point(0, 24);
             this.picBox.Name = "picBox";
-            this.picBox.Size = new System.Drawing.Size(713, 678);
+            this.picBox.Size = new System.Drawing.Size(784, 737);
             this.picBox.TabIndex = 1;
             this.picBox.TabStop = false;
             // 
             // timer1
             // 
+            this.timer1.Interval = 1;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            // 
+            // speedToolStripMenuItem
+            // 
+            this.speedToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.SpeedUp,
+            this.SpeedDown});
+            this.speedToolStripMenuItem.Name = "speedToolStripMenuItem";
+            this.speedToolStripMenuItem.Size = new System.Drawing.Size(52, 20);
+            this.speedToolStripMenuItem.Text = "Speed";
+            // 
+            // SpeedUp
+            // 
+            this.SpeedUp.Name = "SpeedUp";
+            this.SpeedUp.ShortcutKeyDisplayString = "+";
+            this.SpeedUp.Size = new System.Drawing.Size(180, 22);
+            this.SpeedUp.Text = "Up";
+            this.SpeedUp.Click += new System.EventHandler(this.SpeedUp_Click);
+            // 
+            // SpeedDown
+            // 
+            this.SpeedDown.Name = "SpeedDown";
+            this.SpeedDown.ShortcutKeyDisplayString = "-";
+            this.SpeedDown.Size = new System.Drawing.Size(180, 22);
+            this.SpeedDown.Text = "Down";
+            this.SpeedDown.Click += new System.EventHandler(this.SpeedDown_Click);
             // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(13F, 24F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
-            this.ClientSize = new System.Drawing.Size(713, 722);
+            this.ClientSize = new System.Drawing.Size(784, 761);
             this.Controls.Add(this.picBox);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
-            this.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.Name = "Form1";
             this.Text = "Train #01";
             this.Shown += new System.EventHandler(this.Form1_Shown);
@@ -127,6 +156,9 @@
         private System.Windows.Forms.ToolStripMenuItem ManuExit;
         private System.Windows.Forms.PictureBox picBox;
         private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.ToolStripMenuItem speedToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem SpeedUp;
+        private System.Windows.Forms.ToolStripMenuItem SpeedDown;
     }
 }
 

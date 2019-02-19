@@ -14,15 +14,18 @@ namespace Training01
 {
     public partial class Form1 : Form
     {
-        bool Start = false;
-        bool Stop = true;
-        int NumberOfStars = 100;
-        int Speed = 0;
+        
+        int NumberOfStars = 1000;
         Bitmap DrawArea;
         Star star;
         //List<Rectangle> stars = new List<Rectangle>();
         int picWidth;
         int picHeight;
+        static Random rand = new Random();
+        int starMinSize = 0;
+        int starMaxSize = 5;
+        int Speed = 100;
+
 
 
         public Form1()
@@ -39,7 +42,7 @@ namespace Training01
 
         private void Form1_Shown(object sender, EventArgs e)
         {
-            star = new Star(5, 5, picBox.Width, picBox.Height, NumberOfStars);
+            star = new Star(starMinSize, starMaxSize, picBox.Width, picBox.Height, picBox.Width / 2, NumberOfStars);
             picWidth = picBox.Width;
             picHeight = picBox.Height;
 
@@ -58,16 +61,14 @@ namespace Training01
 
         private void MenuStart_Click(object sender, EventArgs e)
         {
-            Start = true;
-            Stop = false;
+            
             timer1.Enabled = true;
                 
         }
 
         private void MenuStop_Click(object sender, EventArgs e)
         {
-            Start = false;
-            Stop = true;
+           
             timer1.Enabled = false;
         }
 
@@ -79,28 +80,53 @@ namespace Training01
             
             for (int i = 0; i < NumberOfStars; i++)
             {
-                if (star.starX[i] >= 0) { star.starX[i] = (star.starX[i]/ 200 + 1 + Speed)*200; }
-                else { star.starX[i] = (star.starX[i] / 200 - 1 - Speed)*200; }
-
-                if (star.starY[i] >= 0) { star.starY[i] = (star.starX[i] / 200 + 1 + Speed)*200; }
-                else { star.starY[i] = (star.starX[i] / 200 - 1 - Speed)*200; }
-            //}
-
-
-            //for (int i = 0; i < NumberOfStars; i++)
-            //{
-                star.starRect[i].X = (int)star.starX[i]+ (picWidth / 2);
-                star.starRect[i].Y = (int)star.starY[i] + (picHeight / 2);
-                star.starRect[i].Width = star.starWidth[i];
-                star.starRect[i].Height = star.starHeight[i];
                 
-                //stars.Add(star.starRect);
+                double Scale = 0.0003 * ((picBox.Width / 4) - star.starZ[i]);
+
+                star.starWidth[i] += Scale; /*(Math.Abs(star.starX[i]) * Math.Abs(star.starY[i]) / picWidth / picWidth);*/
+                star.starHeight[i] = star.starWidth[i];
+                double absStarX = Math.Abs(star.starX[i]);
+                double absStarY = Math.Abs(star.starY[i]);
+
+                //if (star.starX[i] >= 0) { star.starX[i] = star.starX[i] + (Square(star.starX[i]) / Square(picWidth)) * Speed; }
+                //else { star.starX[i] = star.starX[i] - (Square(star.starX[i]) / Square(picWidth)) * Speed; }
+
+                //if (star.starY[i] >= 0) { star.starY[i] = star.starY[i] + (Square(star.starY[i]) / Square(picHeight)) * Speed; }
+                //else { star.starY[i] = star.starY[i] - (Square(star.starY[i]) / Square(picHeight)) * Speed; }
+
+
+                if (star.starX[i] >= 0) { star.starX[i] = star.starX[i] + (100*star.starX[i] / star.starZ[i]) / Speed; }
+                else { star.starX[i] = star.starX[i] + (100 * star.starX[i] / star.starZ[i]) / Speed; }
+
+                if (star.starY[i] >= 0) { star.starY[i] = star.starY[i] + (100 * star.starY[i] / star.starZ[i]) / Speed; }
+                else { star.starY[i] = star.starY[i] + (100 * star.starY[i] / star.starZ[i]) / Speed; }
+
+
+                //star.starX[i] = star.starX[i] * Speed * star.starX[i] / star.starZ[i];
+                //star.starY[i] = star.starY[i] * Speed * star.starY[i] / star.starZ[i];
+                //star.starZ[i] *= Scale;
+
+                if (((star.starX[i] <= -picWidth / 2) || (star.starX[i]) >= picWidth / 2)
+                    || ((star.starY[i] <= -picHeight / 2) || (star.starY[i]) >= picHeight / 2) || star.starZ[i] <= 0)
+                {
+                    star.starX[i] = rand.Next(-picWidth / 2, picWidth / 2);
+                    star.starY[i] = rand.Next(-picHeight / 2, picHeight / 2);
+                    star.starWidth[i] = 0/*rand.Next(starMinSize, starMaxSize)*/;
+                    star.starHeight[i] = star.starWidth[i];
+                    star.starZ[i] = rand.Next(0, picBox.Width / 4);
+                }
+
+                star.starRect[i].X = (int)star.starX[i] + (picWidth / 2);
+                star.starRect[i].Y = (int)star.starY[i] + (picHeight / 2);
+                star.starRect[i].Width = (int)star.starWidth[i];
+                star.starRect[i].Height = (int)star.starHeight[i];
+                star.starZ[i] -= 1;
+
                 graphics.FillEllipse(brush, star.starRect[i]);
             }
-                picBox.Image = DrawArea;
+            picBox.Image = DrawArea;
             graphics.Dispose();
-
-            Thread.Sleep(10);
+            Thread.Sleep(Speed);
 
                 
 
@@ -110,6 +136,37 @@ namespace Training01
         private void timer1_Tick(object sender, EventArgs e)
         {
             StarsMove();
+        }
+
+        private double Qubic(double nums)
+        {
+            return  nums * nums * nums;
+        }
+
+        private double Square(double nums)
+        {
+            return nums * nums;
+        }
+
+        private double Translate(double nums)
+        {
+            return nums - (picBox.Width / 2);
+        }
+
+        private void SpeedUp_Click(object sender, EventArgs e)
+        {
+            Speed -= 10;
+            //NumberOfStars += 1000;
+            //star = new Star(starMinSize, starMaxSize, picBox.Width, picBox.Height, picBox.Width / 2, NumberOfStars);
+
+        }
+
+        private void SpeedDown_Click(object sender, EventArgs e)
+        {
+            Speed += 10;
+            //NumberOfStars -= 1000;
+            //star = new Star(starMinSize, starMaxSize, picBox.Width, picBox.Height, picBox.Width / 2, NumberOfStars);
+
         }
     }
 }
