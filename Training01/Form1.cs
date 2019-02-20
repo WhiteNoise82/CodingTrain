@@ -15,27 +15,30 @@ namespace Training01
     public partial class Form1 : Form
     {
         
-        int NumberOfStars = 1000;
+        int NumberOfStars;
         Bitmap DrawArea;
         Star star;
-        //List<Rectangle> stars = new List<Rectangle>();
         int picWidth;
         int picHeight;
-        static Random rand = new Random();
-        int starMinSize = 0;
-        int starMaxSize = 5;
-        int Speed = 3;
+        int starMinSize;
+        int starMaxSize;
+        int Speed = 10;
 
+        static Random rand = new Random();
 
 
         public Form1()
         {
             InitializeComponent();
             this.picBox.Image = DrawArea;
-            this.Width = 1200;
-            this.Height = 1200;
             this.picWidth = picBox.Width;
             this.picHeight = picBox.Height;
+            this.starMinSize = int.Parse(textBoxMin.Text);
+            this.starMaxSize = int.Parse(textBoxMax.Text);
+            this.NumberOfStars = int.Parse(textBoxNumStar.Text);
+            ParaPanel.Visible = false;
+            this.Width = int.Parse(textBoxWinX.Text);
+            this.Height = int.Parse(textBoxWinY.Text);
             DrawArea = new Bitmap(picBox.Size.Width, picBox.Size.Height);
             
         }
@@ -46,26 +49,14 @@ namespace Training01
 
         private void Form1_Shown(object sender, EventArgs e)
         {
-            star = new Star(starMinSize, starMaxSize, picBox.Width, picBox.Height, picBox.Width / 4 - 100, NumberOfStars);
-            picWidth = picBox.Width;
-            picHeight = picBox.Height;
-
-            //Graphics graphics = Graphics.FromImage(DrawArea);
-            //SolidBrush brush = new SolidBrush(Color.White);
-
-            //for (int i = 0; i < NumberOfStars; i++)
-            //{
-
-            //    //stars.Add(star.starRect);
-            //    graphics.FillEllipse(brush, star.starRect[i]);
-            //    picBox.Image = DrawArea;
-            //}
-            //graphics.Dispose();
         }
 
-        private void MenuStart_Click(object sender, EventArgs e)
+        public void MenuStart_Click(object sender, EventArgs e)
         {
+            picWidth = picBox.Width;
+            picHeight = picBox.Height;
             
+            star = new Star(starMinSize, starMaxSize, picBox.Width, picBox.Height, picBox.Width / 4 - 100, NumberOfStars);
             timer1.Enabled = true;
                 
         }
@@ -79,8 +70,8 @@ namespace Training01
         private void StarsMove(Graphics graphics)
         {
             float colerGain = 1.3f;
-            float scaleGain = 0.0001f;
-            int initialStarZ = picWidth / 4 - 100;
+            float scaleGain = 0.0002f;
+            int initialStarZ = picWidth / 4-100;
             int halfPicWidth = picWidth / 2;
             int halfPicHeight = picHeight / 2;
 
@@ -94,7 +85,7 @@ namespace Training01
                 
                 SolidBrush brush = new SolidBrush(Color.FromArgb(colorBit, Color.White));
 
-                float Scale = scaleGain * ((halfPicWidth) - star.StarZ[i]);
+                float Scale = scaleGain * ((halfPicWidth/2) - star.StarZ[i]);
 
                 star.StarWidth[i] += Scale; 
                 star.StarHeight[i] += Scale;
@@ -104,7 +95,7 @@ namespace Training01
                 {
                     star.StarX[i] = rand.Next(-halfPicWidth, halfPicWidth);
                     star.StarY[i] = rand.Next(-halfPicHeight, halfPicHeight);
-                    star.StarWidth[i] = 0;
+                    star.StarWidth[i] = rand.Next(starMinSize, starMaxSize);
                     star.StarHeight[i] = star.StarWidth[i];
                     star.StarZ[i] = initialStarZ;
                 }
@@ -118,7 +109,7 @@ namespace Training01
                 star.StarRect[i].Y = (int)(star.StarY[i] + (halfPicHeight));
                 star.StarRect[i].Width = (int)star.StarWidth[i];
                 star.StarRect[i].Height = (int)star.StarHeight[i];
-                star.StarZ[i] -= 1;
+                star.StarZ[i]--;
 
                 graphics.FillEllipse(brush, star.StarRect[i]);
             }
@@ -141,6 +132,7 @@ namespace Training01
         private void SpeedUp_Click(object sender, EventArgs e)
         {
             Speed--;
+            if (Speed <= 0) Speed = 1;
 
         }
 
@@ -160,6 +152,38 @@ namespace Training01
         {
             float offsetYVal = ((star.StarHeight[i] - Scale) * star.StarY[i] / star.StarZ[i]) / Speed;
             return offsetYVal;
+        }
+
+        private void ManuExit_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void paraCheckBtn_Click(object sender, EventArgs e)
+        {
+            this.Width = int.Parse(textBoxWinX.Text);
+            this.Height = int.Parse(textBoxWinY.Text);
+            this.picWidth = picBox.Width;
+            this.picHeight = picBox.Height;
+            this.starMinSize = int.Parse(textBoxMin.Text);
+            this.starMaxSize = int.Parse(textBoxMax.Text);
+            this.NumberOfStars = int.Parse(textBoxNumStar.Text);
+            ParaPanel.Visible = false;
+            DrawArea = new Bitmap(picBox.Size.Width, picBox.Size.Height);
+            MenuStart_Click(sender, e);
+        }
+
+        private void setParametersToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ParaPanel.Visible = true;
+        }
+
+        private void Form1_SizeChanged(object sender, EventArgs e)
+        {
+            this.picWidth = picBox.Width;
+            this.picHeight = picBox.Height;
+            DrawArea = new Bitmap(picBox.Size.Width, picBox.Size.Height);
+            
         }
     }
 }

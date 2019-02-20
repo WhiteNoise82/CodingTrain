@@ -37,9 +37,7 @@ namespace Training01
             for (int i = 0; i < _NumberOfStars; i++)
             {
                 this._StarWidth[i] = rand.Next(starMinSize, starMaXSize);
-                this._StarHeight[i] = _StarWidth[i]; //rand.Next(starMinSize, starMaXSize);
-                //this.StarX = (int)(rand.NextDouble() * formWidth);
-                //this.StarY = (int)(rand.NextDouble() * formHeight);            
+                this._StarHeight[i] = _StarWidth[i];           
                 this._StarX[i] = rand.Next(-width, width);
                 this._StarY[i] = rand.Next(-height, height);
                 this._StarZ[i] = rand.Next(0, depth);
