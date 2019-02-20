@@ -34,11 +34,11 @@
             this.MenuStart = new System.Windows.Forms.ToolStripMenuItem();
             this.MenuStop = new System.Windows.Forms.ToolStripMenuItem();
             this.ManuExit = new System.Windows.Forms.ToolStripMenuItem();
-            this.picBox = new System.Windows.Forms.PictureBox();
-            this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.speedToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.SpeedUp = new System.Windows.Forms.ToolStripMenuItem();
             this.SpeedDown = new System.Windows.Forms.ToolStripMenuItem();
+            this.picBox = new System.Windows.Forms.PictureBox();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picBox)).BeginInit();
             this.SuspendLayout();
@@ -69,7 +69,7 @@
             // 
             this.MenuStart.Name = "MenuStart";
             this.MenuStart.ShortcutKeyDisplayString = "*";
-            this.MenuStart.Size = new System.Drawing.Size(180, 22);
+            this.MenuStart.Size = new System.Drawing.Size(113, 22);
             this.MenuStart.Text = "Start";
             this.MenuStart.Click += new System.EventHandler(this.MenuStart_Click);
             // 
@@ -77,15 +77,42 @@
             // 
             this.MenuStop.Name = "MenuStop";
             this.MenuStop.ShortcutKeyDisplayString = "2";
-            this.MenuStop.Size = new System.Drawing.Size(180, 22);
+            this.MenuStop.Size = new System.Drawing.Size(113, 22);
             this.MenuStop.Text = "Stop";
             this.MenuStop.Click += new System.EventHandler(this.MenuStop_Click);
             // 
             // ManuExit
             // 
             this.ManuExit.Name = "ManuExit";
-            this.ManuExit.Size = new System.Drawing.Size(99, 22);
+            this.ManuExit.Size = new System.Drawing.Size(113, 22);
             this.ManuExit.Text = "Exit";
+            // 
+            // speedToolStripMenuItem
+            // 
+            this.speedToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.SpeedUp,
+            this.SpeedDown});
+            this.speedToolStripMenuItem.Name = "speedToolStripMenuItem";
+            this.speedToolStripMenuItem.Size = new System.Drawing.Size(52, 20);
+            this.speedToolStripMenuItem.Text = "Speed";
+            // 
+            // SpeedUp
+            // 
+            this.SpeedUp.Name = "SpeedUp";
+            this.SpeedUp.ShortcutKeyDisplayString = "+";
+            this.SpeedUp.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.D1)));
+            this.SpeedUp.Size = new System.Drawing.Size(118, 22);
+            this.SpeedUp.Text = "Up";
+            this.SpeedUp.Click += new System.EventHandler(this.SpeedUp_Click);
+            // 
+            // SpeedDown
+            // 
+            this.SpeedDown.Name = "SpeedDown";
+            this.SpeedDown.ShortcutKeyDisplayString = "-";
+            this.SpeedDown.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.D2)));
+            this.SpeedDown.Size = new System.Drawing.Size(118, 22);
+            this.SpeedDown.Text = "Down";
+            this.SpeedDown.Click += new System.EventHandler(this.SpeedDown_Click);
             // 
             // picBox
             // 
@@ -101,31 +128,6 @@
             // 
             this.timer1.Interval = 1;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
-            // 
-            // speedToolStripMenuItem
-            // 
-            this.speedToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.SpeedUp,
-            this.SpeedDown});
-            this.speedToolStripMenuItem.Name = "speedToolStripMenuItem";
-            this.speedToolStripMenuItem.Size = new System.Drawing.Size(52, 20);
-            this.speedToolStripMenuItem.Text = "Speed";
-            // 
-            // SpeedUp
-            // 
-            this.SpeedUp.Name = "SpeedUp";
-            this.SpeedUp.ShortcutKeyDisplayString = "+";
-            this.SpeedUp.Size = new System.Drawing.Size(180, 22);
-            this.SpeedUp.Text = "Up";
-            this.SpeedUp.Click += new System.EventHandler(this.SpeedUp_Click);
-            // 
-            // SpeedDown
-            // 
-            this.SpeedDown.Name = "SpeedDown";
-            this.SpeedDown.ShortcutKeyDisplayString = "-";
-            this.SpeedDown.Size = new System.Drawing.Size(180, 22);
-            this.SpeedDown.Text = "Down";
-            this.SpeedDown.Click += new System.EventHandler(this.SpeedDown_Click);
             // 
             // Form1
             // 

@@ -24,15 +24,19 @@ namespace Training01
         static Random rand = new Random();
         int starMinSize = 0;
         int starMaxSize = 5;
-        int Speed = 100;
+        int Speed = 3;
 
 
 
         public Form1()
         {
             InitializeComponent();
+            this.picBox.Image = DrawArea;
+            this.Width = 1200;
+            this.Height = 1200;
+            this.picWidth = picBox.Width;
+            this.picHeight = picBox.Height;
             DrawArea = new Bitmap(picBox.Size.Width, picBox.Size.Height);
-            picBox.Image = DrawArea;
             
         }
 
@@ -42,7 +46,7 @@ namespace Training01
 
         private void Form1_Shown(object sender, EventArgs e)
         {
-            star = new Star(starMinSize, starMaxSize, picBox.Width, picBox.Height, picBox.Width / 2, NumberOfStars);
+            star = new Star(starMinSize, starMaxSize, picBox.Width, picBox.Height, picBox.Width / 4 - 100, NumberOfStars);
             picWidth = picBox.Width;
             picHeight = picBox.Height;
 
@@ -72,61 +76,54 @@ namespace Training01
             timer1.Enabled = false;
         }
 
-        private void StarsMove()
+        private void StarsMove(Graphics graphics)
         {
-            Graphics graphics = Graphics.FromImage(DrawArea);
-            graphics.Clear(Color.Black);
-            SolidBrush brush = new SolidBrush(Color.White);
-            
+            float colerGain = 1.3f;
+            float scaleGain = 0.0001f;
+            int initialStarZ = picWidth / 4 - 100;
+            int halfPicWidth = picWidth / 2;
+            int halfPicHeight = picHeight / 2;
+
+
+
             for (int i = 0; i < NumberOfStars; i++)
             {
+                int colorBit = (int)(255 * colerGain * (1 - star.StarZ[i] / initialStarZ));
+                if (colorBit > 255) colorBit = 255;
+                else if(colorBit < 0) colorBit = 0;
                 
-                double Scale = 0.0003 * ((picBox.Width / 4) - star.starZ[i]);
+                SolidBrush brush = new SolidBrush(Color.FromArgb(colorBit, Color.White));
 
-                star.starWidth[i] += Scale; /*(Math.Abs(star.starX[i]) * Math.Abs(star.starY[i]) / picWidth / picWidth);*/
-                star.starHeight[i] = star.starWidth[i];
-                double absStarX = Math.Abs(star.starX[i]);
-                double absStarY = Math.Abs(star.starY[i]);
+                float Scale = scaleGain * ((halfPicWidth) - star.StarZ[i]);
 
-                //if (star.starX[i] >= 0) { star.starX[i] = star.starX[i] + (Square(star.starX[i]) / Square(picWidth)) * Speed; }
-                //else { star.starX[i] = star.starX[i] - (Square(star.starX[i]) / Square(picWidth)) * Speed; }
+                star.StarWidth[i] += Scale; 
+                star.StarHeight[i] += Scale;
 
-                //if (star.starY[i] >= 0) { star.starY[i] = star.starY[i] + (Square(star.starY[i]) / Square(picHeight)) * Speed; }
-                //else { star.starY[i] = star.starY[i] - (Square(star.starY[i]) / Square(picHeight)) * Speed; }
-
-
-                if (star.starX[i] >= 0) { star.starX[i] = star.starX[i] + (100*star.starX[i] / star.starZ[i]) / Speed; }
-                else { star.starX[i] = star.starX[i] + (100 * star.starX[i] / star.starZ[i]) / Speed; }
-
-                if (star.starY[i] >= 0) { star.starY[i] = star.starY[i] + (100 * star.starY[i] / star.starZ[i]) / Speed; }
-                else { star.starY[i] = star.starY[i] + (100 * star.starY[i] / star.starZ[i]) / Speed; }
-
-
-                //star.starX[i] = star.starX[i] * Speed * star.starX[i] / star.starZ[i];
-                //star.starY[i] = star.starY[i] * Speed * star.starY[i] / star.starZ[i];
-                //star.starZ[i] *= Scale;
-
-                if (((star.starX[i] <= -picWidth / 2) || (star.starX[i]) >= picWidth / 2)
-                    || ((star.starY[i] <= -picHeight / 2) || (star.starY[i]) >= picHeight / 2) || star.starZ[i] <= 0)
+                if (((star.StarX[i] <= -halfPicWidth) || (star.StarX[i]) >= halfPicWidth)
+                    || ((star.StarY[i] <= -halfPicHeight) || (star.StarY[i]) >= halfPicHeight) || star.StarZ[i] <= 0)
                 {
-                    star.starX[i] = rand.Next(-picWidth / 2, picWidth / 2);
-                    star.starY[i] = rand.Next(-picHeight / 2, picHeight / 2);
-                    star.starWidth[i] = 0/*rand.Next(starMinSize, starMaxSize)*/;
-                    star.starHeight[i] = star.starWidth[i];
-                    star.starZ[i] = rand.Next(0, picBox.Width / 4);
+                    star.StarX[i] = rand.Next(-halfPicWidth, halfPicWidth);
+                    star.StarY[i] = rand.Next(-halfPicHeight, halfPicHeight);
+                    star.StarWidth[i] = 0;
+                    star.StarHeight[i] = star.StarWidth[i];
+                    star.StarZ[i] = initialStarZ;
                 }
 
-                star.starRect[i].X = (int)star.starX[i] + (picWidth / 2);
-                star.starRect[i].Y = (int)star.starY[i] + (picHeight / 2);
-                star.starRect[i].Width = (int)star.starWidth[i];
-                star.starRect[i].Height = (int)star.starHeight[i];
-                star.starZ[i] -= 1;
+                star.StarX[i] += StarOffsetX(i, Scale, Speed);
+                star.StarY[i] += StarOffsetY(i, Scale, Speed);
 
-                graphics.FillEllipse(brush, star.starRect[i]);
+
+
+                star.StarRect[i].X = (int)(star.StarX[i] + (halfPicWidth));
+                star.StarRect[i].Y = (int)(star.StarY[i] + (halfPicHeight));
+                star.StarRect[i].Width = (int)star.StarWidth[i];
+                star.StarRect[i].Height = (int)star.StarHeight[i];
+                star.StarZ[i] -= 1;
+
+                graphics.FillEllipse(brush, star.StarRect[i]);
             }
             picBox.Image = DrawArea;
-            graphics.Dispose();
-            Thread.Sleep(Speed);
+            
 
                 
 
@@ -135,38 +132,34 @@ namespace Training01
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-            StarsMove();
+            Graphics graphics = Graphics.FromImage(DrawArea);
+            graphics.Clear(Color.Black);
+            StarsMove(graphics);
+            graphics.Dispose();
         }
-
-        private double Qubic(double nums)
-        {
-            return  nums * nums * nums;
-        }
-
-        private double Square(double nums)
-        {
-            return nums * nums;
-        }
-
-        private double Translate(double nums)
-        {
-            return nums - (picBox.Width / 2);
-        }
-
+        
         private void SpeedUp_Click(object sender, EventArgs e)
         {
-            Speed -= 10;
-            //NumberOfStars += 1000;
-            //star = new Star(starMinSize, starMaxSize, picBox.Width, picBox.Height, picBox.Width / 2, NumberOfStars);
+            Speed--;
 
         }
 
         private void SpeedDown_Click(object sender, EventArgs e)
         {
-            Speed += 10;
-            //NumberOfStars -= 1000;
-            //star = new Star(starMinSize, starMaxSize, picBox.Width, picBox.Height, picBox.Width / 2, NumberOfStars);
+            Speed++;
 
+        }
+
+        public float StarOffsetX(int i, float Scale, int Speed)
+        {
+            float offsetXVal = ((star.StarWidth[i] - Scale) * star.StarX[i] / star.StarZ[i]) / Speed;
+            return offsetXVal;
+        }
+
+        public float StarOffsetY(int i, float Scale, int Speed)
+        {
+            float offsetYVal = ((star.StarHeight[i] - Scale) * star.StarY[i] / star.StarZ[i]) / Speed;
+            return offsetYVal;
         }
     }
 }

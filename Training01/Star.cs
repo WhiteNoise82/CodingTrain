@@ -11,11 +11,11 @@ namespace Training01
     public class Star
     {
         private int _NumberOfStars;
-        private double[] _StarWidth;
-        private double[] _StarHeight;
-        private double[] _StarX;
-        private double[] _StarY;
-        private double[] _StarZ;
+        private float[] _StarWidth;
+        private float[] _StarHeight;
+        private float[] _StarX;
+        private float[] _StarY;
+        private float[] _StarZ;
 
         private Rectangle[] _StarRect;
         static Random rand = new Random();
@@ -24,11 +24,11 @@ namespace Training01
         {
             this._NumberOfStars = numberOfStars;
 
-            this._StarWidth = new double[numberOfStars];
-            this._StarHeight = new double[numberOfStars];
-            this._StarX = new double[numberOfStars];
-            this._StarY = new double[numberOfStars];
-            this._StarZ = new double[numberOfStars];
+            this._StarWidth = new float[numberOfStars];
+            this._StarHeight = new float[numberOfStars];
+            this._StarX = new float[numberOfStars];
+            this._StarY = new float[numberOfStars];
+            this._StarZ = new float[numberOfStars];
             this._StarRect = new Rectangle[numberOfStars];
 
             int width = formWidth / 2;
@@ -50,37 +50,37 @@ namespace Training01
             
         }
 
-        public double[] starWidth
+        public float[] StarWidth
         {
             get { return _StarWidth; }
             set { _StarWidth = value; }
         }
 
-        public double[] starHeight
+        public float[] StarHeight
         {
             get { return _StarHeight; }
             set { _StarHeight = value; }
         }
         
-        public double[] starX
+        public float[] StarX
         {
             get { return _StarX; }
             set { _StarY = value; }
         }
 
-        public double[] starY
+        public float[] StarY
         {
             get { return _StarY; }
             set { _StarY = value; }
         }
 
-        public double[] starZ
+        public float[] StarZ
         {
             get { return _StarZ; }
             set { _StarZ = value; }
         }
 
-        public Rectangle[] starRect
+        public Rectangle[] StarRect
         {
             get { return _StarRect; }
             set { _StarRect = value; }
