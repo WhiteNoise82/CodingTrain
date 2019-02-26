@@ -27,10 +27,10 @@ namespace Training02
         }
         public void Draw(Graphics G, int width)
         {
-            int height = 50; // height of the cube (y-axis)
-            int skew = 20;
+            int height = 100; // height of the cube (y-axis)
+            int skew = 50;
             Point Org = new Point(100, 100);
-            Pen pencil = new Pen(Color.Blue, 1f);
+            Pen pencil = new Pen(Color.White, 1f);
             Rectangle R = new Rectangle(Org.X, Org.Y, width, height);
             G.DrawRectangle(pencil, R);
             G.DrawLine(pencil, Org.X, Org.Y, Org.X + skew, Org.Y - skew);
